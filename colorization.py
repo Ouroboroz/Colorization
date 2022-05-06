@@ -5,8 +5,14 @@ from scipy import sparse
 from scipy.sparse import linalg
 
 #File path for images
-monochromatic_image_path = "example2.bmp"
-scribbled_image_path = "example2_marked.bmp"
+monochromatic_image_path = "aaron_mono.bmp"
+scribbled_image_path = "aaron_partial_scribble_2.bmp"
+#for saving the generated image
+save = True
+save_path = "aaron_partial_scribble_2_colorized.bmp"
+#for displaying in implot
+display = True
+
 window_size = 1
 """
 ###
@@ -120,10 +126,15 @@ print(type(monochromatic_yuv))
 print(np.float32(mono_y))
 print(np.min(chromo_u))
 
-chromo_image = cv2.cvtColor(chromo_yuv, cv2.COLOR_YUV2RGB)
-#chromo_image = cv2.normalize(chromo_image, None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
-plt.imshow(chromo_image)
-plt.show()
+if display:
+	chromo_image = cv2.cvtColor(chromo_yuv, cv2.COLOR_YUV2RGB)
+	#chromo_image = cv2.normalize(chromo_image, None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
+	plt.imshow(chromo_image)
+	plt.show()
+
+if save:
+	chromo_image = cv2.cvtColor(chromo_yuv, cv2.COLOR_YUV2BGR)*255
+	cv2.imwrite(save_path, chromo_image)
 
 
 
